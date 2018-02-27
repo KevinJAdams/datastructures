@@ -16,6 +16,7 @@ public class LinkedListTest {
         int length = theString.length();
         Pair<Boolean, LinkedList<Character>.Node> resultPair = LinkedList.isPalindrome(charList.getHead(), length);
         System.out.println("isPalindrome: " + resultPair.getKey());
+        System.out.println("isPalindromeReverseList: " + LinkedList.isPalindromeReverseList(charList));
     }
 
 

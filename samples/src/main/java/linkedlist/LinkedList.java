@@ -166,7 +166,43 @@ public class LinkedList<T> {
         return new Pair<Boolean, LinkedList<Character>.Node>(node.getValue().equals(mirrorNode.getValue()), mirrorNode.next());
     }
 
+    public static LinkedList reverse(LinkedList list) {
+        LinkedList result = new LinkedList();
+        Stack<LinkedList.Node> stack = new Stack<>();
+        for (LinkedList.Node node = list.getHead(); node != null; node = node.next()) {
+            stack.push(node);
+        }
+        while (!stack.empty()) {
+            LinkedList.Node node = stack.pop();
+            result.append(node.getValue());
+        }
+        return result;
+    }
 
+    public static boolean isPalindromeReverseList(LinkedList list) {
+        int listLength = 0;
+        LinkedList reversedList = reverse(list);
+        System.out.println("List: " + list.toString());
+        System.out.println("Reverse: " + reversedList.toString());
+        boolean result = listsMatch(list, reversedList);
+        return result;
+    }
+
+    public static boolean listsMatch(LinkedList list1, LinkedList list2) {
+        LinkedList.Node node1 = list1.getHead();
+        LinkedList.Node node2 = list2.getHead();
+        while (node1 != null && node2 != null) {
+            if (!node1.getValue().equals(node2.getValue())) {
+                return false;
+            }
+            node1 = node1.next();
+            node2 = node2.next();
+        }
+        if (node2 != null || node1 != null) {
+            return false;
+        }
+        return true;
+    }
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
