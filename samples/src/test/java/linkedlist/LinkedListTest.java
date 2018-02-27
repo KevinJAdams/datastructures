@@ -8,25 +8,14 @@ import java.util.Stack;
 
 public class LinkedListTest {
     public static void main(String[] args) {
-        int listLength = 10;
-        int maxValue = 10;
+        String theString = "";
         if (args.length > 0) {
-            listLength = Integer.parseInt(args[0]);
+            theString = args[0];
         }
-        if (args.length > 1) {
-            maxValue = Integer.parseInt(args[1]);
-        }
-        LinkedList<Integer> list1 = LinkedList.initializeRandomList(listLength, maxValue);
-        System.out.println("list1: " + list1.toString());
-
-        LinkedList<Integer> list2 = LinkedList.initializeRandomList(listLength, maxValue);
-        System.out.println("list2: " + list2.toString());
-
-        LinkedList<Integer> result = LinkedList.sum(list1, list2);
-        System.out.println("sum: " + result.toString());
-
-        LinkedList<Integer> resultReverseList = LinkedList.sumReverse(list1, list2);
-        System.out.println("Reverse: " + resultReverseList);
+        LinkedList<Character> charList = LinkedList.initializeFromString(theString);
+        int length = theString.length();
+        Pair<Boolean, LinkedList<Character>.Node> resultPair = LinkedList.isPalindrome(charList.getHead(), length);
+        System.out.println("isPalindrome: " + resultPair.getKey());
     }
 
 

@@ -1,5 +1,7 @@
 package linkedlist;
 
+import javafx.util.Pair;
+
 import java.util.Random;
 import java.util.Stack;
 
@@ -55,6 +57,15 @@ public class LinkedList<T> {
         LinkedList<Integer> result = new LinkedList<>();
         for (int i = 0; i < length; i++) {
             result.append(rand.nextInt(maxValue));
+        }
+        return result;
+    }
+
+    static LinkedList<Character> initializeFromString(String str) {
+        LinkedList<Character> result = new LinkedList<>();
+        char[] charArray = str.toCharArray();
+        for (char c : charArray) {
+            result.append(c);
         }
         return result;
     }
@@ -135,6 +146,26 @@ public class LinkedList<T> {
         resultList.setHead(resultHead);
         return resultList;
     }
+
+    public static Pair<Boolean, LinkedList<Character>.Node> isPalindrome(LinkedList<Character>.Node node, int length) {
+        if (length == 0) {
+            return new Pair<Boolean, LinkedList<Character>.Node>(true, null);
+        }
+        if (length == 1) {
+            return new Pair<Boolean, LinkedList<Character>.Node>(true, node.next());
+        }
+        if (length == 2) {
+            LinkedList<Character>.Node nextNode = node.next().next();
+            return new Pair<Boolean, LinkedList<Character>.Node>(node.getValue().equals(node.next().getValue()), nextNode);
+        }
+        Pair<Boolean, LinkedList<Character>.Node> subListPair = isPalindrome(node.next(), length -2);
+        if (subListPair.getKey() == false) {
+            return new Pair<Boolean, LinkedList<Character>.Node>(false, node);
+        }
+        LinkedList<Character>.Node mirrorNode = subListPair.getValue();
+        return new Pair<Boolean, LinkedList<Character>.Node>(node.getValue().equals(mirrorNode.getValue()), mirrorNode.next());
+    }
+
 
     @Override
     public String toString() {
