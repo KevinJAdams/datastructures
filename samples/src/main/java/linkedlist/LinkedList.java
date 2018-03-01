@@ -2,7 +2,9 @@ package linkedlist;
 
 import javafx.util.Pair;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.Stack;
 
 public class LinkedList<T> {
@@ -222,6 +224,16 @@ public class LinkedList<T> {
         }
         return null;
 
+    }
+
+    public static LinkedList.Node detectLoop(LinkedList list) {
+        Set<LinkedList.Node> nodeSet = new HashSet<>();
+        for (LinkedList.Node node = list.getHead(); node != null; node = node.next()) {
+            if (!nodeSet.add(node) ) {
+                return node;
+            }
+        }
+        return null;
     }
 
     @Override
