@@ -203,6 +203,27 @@ public class LinkedList<T> {
         }
         return true;
     }
+
+    public static LinkedList.Node intersectingNode(LinkedList list1,  LinkedList list2) {
+        Stack<LinkedList.Node> stack1 = new Stack<>();
+        Stack<LinkedList.Node> stack2 = new Stack<>();
+        for (LinkedList.Node node = list1.getHead(); node != null; node = node.next()) {
+            stack1.push(node);
+        }
+        for (LinkedList.Node node = list2.getHead(); node != null; node = node.next()) {
+            stack2.push(node);
+        }
+        while (!stack1.isEmpty() && !stack2.isEmpty()) {
+            LinkedList.Node node1 = stack1.pop();
+            LinkedList.Node node2 = stack2.pop();
+            if (node1 == node2 && stack1.peek() != stack2.peek()) {
+                return node1;
+            }
+        }
+        return null;
+
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

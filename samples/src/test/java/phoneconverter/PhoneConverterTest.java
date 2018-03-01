@@ -11,6 +11,10 @@ public class PhoneConverterTest {
             {
                 System.out.println(option);
             }
+            List<String> longestWordList = converter.longestWordList(options, args[0].length());
+            for (String word: longestWordList) {
+                System.out.println("Longest Word: " + word);
+            }
         }
     }
 }

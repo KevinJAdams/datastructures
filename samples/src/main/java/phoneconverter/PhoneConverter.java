@@ -1,9 +1,16 @@
 package phoneconverter;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
+import util.WordChecker;
 
 public class PhoneConverter {
+    WordChecker wordChecker;
+
+    public PhoneConverter() {
+        wordChecker = new WordChecker();
+        wordChecker.loadWords();
+    }
 
     List<String> getPossibleStrings(String numberStr) {
         List<String> subStrings = new LinkedList<>();
@@ -62,5 +69,50 @@ public class PhoneConverter {
                 break;
         }
         return characters;
+    }
+
+    public List<String> longestWordList(List<String> stringList, int maxLength) {
+        for (int length = maxLength; length > 0; length--) {
+            List<String> words = findWordsOfLength(stringList, length);
+            if (words.size() > 0) {
+                return words;
+            }
+
+        }
+        return new ArrayList<String>();
+    }
+
+    private List<String> findWordsOfLength(List<String> stringList, int length) {
+        List<String> result = new ArrayList<>();
+        Set<String> stringsOfLength = new HashSet<>();
+        int addedStrings = 0;
+        int duplicateStrings = 0;
+        for (String s : stringList) {
+            List<String> substrings = findStringsOfLengthInString(s.toLowerCase(), length);
+            for (String subString : substrings) {
+                if(stringsOfLength.add(subString)) {
+                    addedStrings++;
+                } else {
+                    duplicateStrings++;
+                }
+            }
+        }
+
+        for (String s : stringsOfLength) {
+            if (wordChecker.checkForWord(s)) {
+                result.add(s);
+            }
+        }
+        return result;
+
+    }
+
+    private List<String> findStringsOfLengthInString(String s, int length) {
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i <= s.length()-length; i++) {
+            String stringToCheck = s.substring(i, i + length);
+            result.add(stringToCheck);
+        }
+        return result;
     }
 }
